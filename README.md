@@ -20,6 +20,8 @@ This script depends on the `safegraph_functions.py` file for some functions that
 
 ### API Examples
 
+_You can read additional detail at [APIs.md](APIs.md)_
+
 SafeGraph has an API to request data. We will use the API to build our datasets for use in Spark. We can figure out the API locally first.
 #### [`graphql_noath.py`](graphql_noauth.py)
 
