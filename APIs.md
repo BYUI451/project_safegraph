@@ -41,6 +41,28 @@ JSON is simply a flat text file that follows a specific format.  Python handles 
 _After using the API to retrieve a few SafeGraph observations, let's parse the data into a table._
 
 1. Use the `graphql_noauth.py` and extend the current `query()` to include `image`, `origin`, and `episode`.
-2. Convert the episode field from key/value (wide format) to a JSON array (long format) with the keys `number` and `date` and their associated arrays `[]` as the values.
+2. Convert the episode field from key/value (wide format) to a JSON array (long format) with the keys `number`, `name` and `air_date` and their associated arrays `[]` as the values.
 3. Use `pd.parse_json()` to build your table. What do you notice?
-4. Save your new `.jsonl` output to the `jsonlines` format using the [jsonlines python package](https://jsonlines.readthedocs.io/en/latest/).
+4. Save your new `.jsonl` output to the `jsonlines` format using the [jsonlines python package](https://jsonlines.readthedocs.io/en/latest/). Your file should look like [output.jsonl](output.jsonl)
+5. Read the `.jsonl` file with `pd.read_json()` and the correct arguments.
+
+### `.jsonl` and array structure
+
+Notice that the API returns the key/value pair for `episode` as
+
+```JSON
+'episode': [{'episode': 'S01E10',
+   'name': 'Close Rick-counters of the Rick Kind',
+   'air_date': 'April 7, 2014'},
+  {'episode': 'S03E07',
+   'name': 'The Ricklantis Mixup',
+   'air_date': 'September 10, 2017'}]}
+```
+
+and that we want to move the format to JSON arrays.
+
+```JSON
+"episode": {"number": ["S01E10", "S03E07"], "name": ["Close Rick-counters of the Rick Kind", "The Ricklantis Mixup"], "air_date": ["April 7, 2014", "September 10, 2017"]}
+```
+
+We will also want to save the file as a [`.jsonl`](https://jsonlines.org/) with one record (valid JSON value) per line.
