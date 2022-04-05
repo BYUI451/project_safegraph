@@ -4,10 +4,12 @@
 # !{sys.executable} -m pip install safegraphQL
 # %%
 # import sys
-# !{sys.executable} -m pip install --pre gql
+# !{sys.executable} -m pip install --pre gql 
+# !{sys.executable} -m pip install requests-toolbelt
 # %%
 # https://docs.safegraph.com/reference#places-api-overview-new
 # https://stackoverflow.com/questions/56856005/how-to-set-environment-variable-in-databricks/56863551
+from matplotlib.font_manager import json_dump
 import pandas as pd
 import json
 
@@ -21,17 +23,42 @@ sfkey = os.environ.get("SAFEGRAPH_KEY")
 url = 'https://api.safegraph.com/v2/graphql'
 query = """
 query {
-  lookup(placekey: "225-222@5vg-7gs-t9z"){
-    placekey
-    safegraph_core {
-      location_name
-      region
-      postal_code
+  search(
+      filter: {
+        address: { 
+            city: "San Francisco", 
+            region: "CA" 
+        }
     }
-  }
+    ) {
+    places {
+      results(first: 25 after: "") {
+      pageInfo {hasNextPage, endCursor}
+      edges {
+        node {
+          safegraph_core {
+          	placekey
+            latitude
+            longitude
+            street_address
+            city
+            region
+            postal_code
+            parent_placekey
+            location_name
+            naics_code
+            opened_on
+            closed_on
+            }
+        	}
+      	}
+    	}
+  	}
+	}
 }
 """
 
+# old safegraph_weekly_patterns()
 query2 = """query {
   search(filter: { 
     naics_code: 813110,
@@ -40,7 +67,7 @@ query2 = """query {
     }
   }){
     places {
-      results(first: 500 after: "") {
+      results(first: 25 after: "") {
         pageInfo { hasNextPage, endCursor}
         edges {
           node {
@@ -76,6 +103,46 @@ query2 = """query {
 }
 """
 
+# uses the new weekly_patterns () function.
+query3 = """query {
+  search(
+      filter: {
+        address: { 
+            city: "San Francisco", 
+            region: "CA" 
+        }
+    }
+    ){
+    places {
+      results(first: 25 after: "") {
+        pageInfo { hasNextPage, endCursor}
+        edges {
+          node {
+            weekly_patterns (start_date: "2019-01-07" end_date: "2019-01-13") {
+              placekey
+              parent_placekey
+              location_name
+              street_address
+              city
+              region
+              postal_code
+              iso_country_code
+              date_range_start
+              date_range_end
+              raw_visit_counts
+              raw_visitor_counts
+              poi_cbg
+              distance_from_home
+              median_dwell
+            }
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
 # %%
 # Using the requests package
 import requests
@@ -88,7 +155,7 @@ r = requests.post(
 print(r.status_code)
 print(r.text)
 json_data = json.loads(r.text)
-df_data = json_data['data']['lookup']
+df_data = json_data['data']['search']['places']['results']['edges']
 print(df_data)
 
 # %%
@@ -113,15 +180,34 @@ client = Client(transport=transport, fetch_schema_from_transport=True)
 
 
 # %%
-results = client.execute(gql(query2))
-
+results = client.execute(gql(query))
+results2 = client.execute(gql(query2))
+results3 = client.execute(gql(query3))
 
 # %%
 edges = results['search']['places']['results']['edges']
 resultsNorm = [dat.pop('node') for dat in edges]
+resultsNorm = [dat.pop('safegraph_core') for dat in resultsNorm]
+
+dat = pd.json_normalize(resultsNorm)
+
+# %%
+edges2 = results2['search']['places']['results']['edges']
+resultsNorm = [dat.pop('node') for dat in edges2]
 resultsNorm = [dat.pop('safegraph_weekly_patterns') for dat in resultsNorm]
 
 dat = pd.json_normalize(resultsNorm)
+
+
+# %%
+edges3 = results3['search']['places']['results']['edges']
+resultsNorm = [dat.pop('node') for dat in edges3]
+resultsNorm = [dat.pop('weekly_patterns') for dat in resultsNorm]
+resultsNorm_flat = [dat[0] for dat in resultsNorm if dat is not None]
+
+
+dat = pd.json_normalize(resultsNorm_flat)
+
 
 # %%
 # https://pypi.org/project/safegraphQL/
