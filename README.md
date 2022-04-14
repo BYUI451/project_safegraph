@@ -50,7 +50,7 @@ This file creates `.parquet` files for upload for our cloud compute.  In additio
 
 ## SafeGraph Guides
 
-You can see a [Colab notebook](https://colab.research.google.com/drive/1cs9qq_MWppKF4DQ0Xl3lyesHEnsc4D6D#scrollTo=_s0TsIZclcbe) that guides you through parsing data from shop.safegraph.com.
+You can see a [Colab notebook](https://colab.research.google.com/drive/1cs9qq_MWppKF4DQ0Xl3lyesHEnsc4D6D#scrollTo=_s0TsIZclcbe) that guides you through parsing data from shop.safegraph.com. As students and faculty, we get free access to the POI, patterns, and polygons data. Please register [here](https://www.safegraph.com/academics).
 
 SafeGraph has a a light technical quickstart guide to working with POI and Mobility data downloaded from the [SafeGraph Shop](https://shop.safegraph.com/), the self-serve source for hundreds of datasets about physical places. The goal of their guide is to get you working effectively with the SafeGraph data as fast as possible.
 
