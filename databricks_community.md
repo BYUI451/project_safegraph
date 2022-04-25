@@ -7,4 +7,4 @@
 5. Click the compute icon on the left (![](img/compute_icon.png))
 6. Name your cluster and add your safegraph API key to the _Environment variables_ section. - `SAFEGRAPH_KEY=dkfdkjdkfa83939dkfjf`
 7. Create your cluster and then navigate to the libraries tab to install our needed Python packages - `gql`.
-8. 
+
