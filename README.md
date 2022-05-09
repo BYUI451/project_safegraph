@@ -20,17 +20,21 @@ This script depends on the `safegraph_functions.py` file for some functions that
 
 ### API Examples
 
-_You can read additional detail at [APIs.md](APIs.md)_
+_You can read additional detail at [APIs/APIs.md](APIs/APIs.md)_
 
 SafeGraph has an API to request data. We will use the API to build our datasets for use in Spark. We can figure out the API locally first.
-#### [`graphql_noath.py`](graphql_noauth.py)
+
+
+#### [`graphql_noath.py`](APIs/graphql_noauth.py)
 
 An elementary API example of letting you evaluate that your system can make calls to a GraphQL API. It only uses the `requests` package in Python.
-#### [`graphql_safegraph.py`](graphql_safegraph.py)
+
+#### [`graphql_safegraph.py`](APIs/graphql_safegraph.py)
 
 This script is the more extended and diverse example of using a GraphQL API. Specifically, it provides three examples of requesting data from the SafeGraph API.
 
 Note the use of the following lines of code to store and retrieve our API key correctly. This code is also exemplified in [`create_environ.py`](create_environ.py) script.
+
 
 ```python
 import os
@@ -42,7 +46,7 @@ sfkey = os.environ.get("SAFEGRAPH_KEY")
 
 We use three Python packages to get data from SafeGraph - `gql`, `requests`, and `safegraphql`. We elected to signal the start of each type of API request with the package imports spread throughout the script.
 
-We will focus on the `gql` or `requests` examples for our work. I want to stay in `gql`.
+We will focus on the `gql` or `requests` examples for our work. We will stay in `gql` and highly recommend that you don't use `graphql`.
 
 #### [`parse_safegraph.py`](parse_safegraph.py)
 

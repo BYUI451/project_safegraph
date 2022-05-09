@@ -14,7 +14,7 @@
 
 ## GraphQL APIs
 
-> GraphQL on the other hand is a query language which gives the client the power to request specific fields and elements it wants to retrieve from the server. It is, loosely speaking, some kind of SQL for the Web. It therefore has to have knowledge on the available data beforehand which couples clients somehow to the server. ([ref](https://stackoverflow.com/questions/48022349/what-is-difference-between-rest-api-and-graph-api) and [another reference](https://zapier.com/engineering/graph-apis/)
+> GraphQL on the other hand is a query language which gives the client the power to request specific fields and elements it wants to retrieve from the server. It is, loosely speaking, __some kind of SQL for the Web__. It therefore has to have knowledge on the available data beforehand which couples clients somehow to the server. ([ref](https://stackoverflow.com/questions/48022349/what-is-difference-between-rest-api-and-graph-api) and [another reference](https://zapier.com/engineering/graph-apis/)
 
 ## API Documentation
 
@@ -57,12 +57,6 @@ Notice that the API returns the key/value pair for `episode` as
   {'episode': 'S03E07',
    'name': 'The Ricklantis Mixup',
    'air_date': 'September 10, 2017'}]}
-```
-
-and that we want to move the format to JSON arrays.
-
-```JSON
-"episode": {"number": ["S01E10", "S03E07"], "name": ["Close Rick-counters of the Rick Kind", "The Ricklantis Mixup"], "air_date": ["April 7, 2014", "September 10, 2017"]}
 ```
 
 We will also want to save the file as a [`.jsonl`](https://jsonlines.org/) with one record (valid JSON value) per line.
