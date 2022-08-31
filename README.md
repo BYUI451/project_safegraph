@@ -67,6 +67,10 @@ They filmed a series of YouTube videos which provide context for each step:
 
 They recommend joining the [SafeGraph Community Slack Channel](https://readme.safegraph.com/docs/join-our-community), a fantastic resource for live, in-person support. Finally, check out their [documentation](https://docs.safegraph.com/docs) for an exhaustive guide to our data.
 
+### SafeGraph Representativeness
+
+SafeGraph has done some work to assess how representative its sample of devices is of the entire population. Specifically, check out the *Measure and Correct Sampling Bias* section of the [Data Science Resources](https://docs.safegraph.com/v4.0/docs/data-science-resources). A recent [external audit](https://www.placekey.io/seminars/mobility-data-used-to-respond-to-covid19-could-be-biased) was done that might also be of value. The audit finds SafeGraph’s panel underrepresents older people and minorities. We hope that normalization techniques correct for some of that bias, but it is still an important consideration. [ref](https://www.safegraph.com/community/t/i-have-the-following-question-are-there-ethical-considerations-to-be-aware-of-when-using-safegraph-data-in-academic-research/5907)
+
 ### Open Census Neighborhood Demographics Data
 
 - [Download Open Census Data & Neighborhood Demographics](https://www.safegraph.com/free-data/open-census-data)
